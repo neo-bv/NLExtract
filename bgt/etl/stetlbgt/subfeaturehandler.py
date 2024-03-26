@@ -145,11 +145,11 @@ class SubFeatureHandler(Filter):
             pass
 
         # Check if the resulting file can be opened successfully
-        with open(self.temp_file, 'rb') as f:
-            context = etree.iterparse(f, tag='{http://www.opengis.net/citygml/2.0}cityObjectMember')
-            for _, elem in context:
-                elem.clear(keep_tail=True)
-            del context
+        # with open(self.temp_file, 'rb') as f:
+        #     context = etree.iterparse(f, tag='{http://www.opengis.net/citygml/2.0}cityObjectMember')
+        #     for _, elem in context:
+        #         elem.clear(keep_tail=True)
+        #     del context
 
         log.info('Temporary XML file was written successfully')
 
