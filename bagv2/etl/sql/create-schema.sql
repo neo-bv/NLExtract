@@ -4,3 +4,5 @@
 -- StringFilter vult actuele schema naam in.
 DROP SCHEMA IF EXISTS {schema} CASCADE;
 CREATE SCHEMA {schema};
+
+CREATE EXTENSION IF NOT EXISTS postgis;
