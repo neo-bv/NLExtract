@@ -31,3 +31,4 @@ CREATE SCHEMA {schema};
 --
 -- DROP FUNCTION _nlx_createschema(schemaname VARCHAR);
 
+CREATE EXTENSION IF NOT EXISTS postgis;
