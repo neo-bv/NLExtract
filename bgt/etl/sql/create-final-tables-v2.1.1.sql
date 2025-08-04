@@ -453,6 +453,7 @@ alter table pand alter column gml_id set not null;
 create index pand_geometrie_vlak_geom_idx on pand using gist((geometrie_vlak::geometry(MULTISURFACE, 28992)));
 create index pand_eindregistratie_idx on pand (eindregistratie);
 create index if not exists pand_curvetoline_idx on pand using gist(ST_CurveToLine(geometrie_vlak));
+create index if not exists pand_curvetoline_centroid_idx on pand using gist(ST_Centroid(ST_CurveToLine(geometrie_vlak)));
 create index pand_bgt_status_idx on pand (bgt_status);
 create index pand_plus_status_idx on pand (plus_status);
 

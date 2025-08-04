@@ -17,6 +17,7 @@ DROP INDEX IF EXISTS woonplaats_vlak_idx CASCADE;
 
 CREATE INDEX ligplaats_geom_idx ON ligplaats USING gist (geovlak);
 CREATE INDEX pand_geom_idx ON pand USING gist (geovlak);
+CREATE INDEX pand_geom_centroid_idx ON pand USING GIST (ST_Centroid(geovlak))
 CREATE INDEX standplaats_geom_idx ON standplaats USING gist (geovlak);
 CREATE INDEX verblijfsobject_punt_idx ON verblijfsobject USING gist (geopunt);
 CREATE INDEX woonplaats_vlak_idx ON woonplaats USING gist (geovlak);
