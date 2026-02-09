@@ -280,6 +280,30 @@ create index onbegroeidterreindeel_plus_status_idx on onbegroeidterreindeel (plu
 create or replace view onbegroeidterreindeelactueel as select * from onbegroeidterreindeel where eindregistratie is null;
 create or replace view onbegroeidterreindeelactueelbestaand as select * from onbegroeidterreindeel where eindregistratie is null and bgt_status = 'bestaand' and plus_status <> 'plan' and plus_status <> 'historie';
 
+-- This view is used for imperviousness inference workflow
+create or replace view onbegroeidterreindeelactueelbestaandbuffered as 
+SELECT onbegroeidterreindeel.ogc_fid,
+    st_buffer(onbegroeidterreindeel.geometrie_vlak, 25::double precision) AS geometrie_vlak,
+    onbegroeidterreindeel.geometrie_kruinlijn,
+    onbegroeidterreindeel.gml_id,
+    onbegroeidterreindeel.namespace,
+    onbegroeidterreindeel.lokaalid,
+    onbegroeidterreindeel.objectbegintijd,
+    onbegroeidterreindeel.objecteindtijd,
+    onbegroeidterreindeel.tijdstipregistratie,
+    onbegroeidterreindeel.eindregistratie,
+    onbegroeidterreindeel.lv_publicatiedatum,
+    onbegroeidterreindeel.bronhouder,
+    onbegroeidterreindeel.inonderzoek,
+    onbegroeidterreindeel.relatievehoogteligging,
+    onbegroeidterreindeel.bgt_status,
+    onbegroeidterreindeel.plus_status,
+    onbegroeidterreindeel.bgt_fysiekvoorkomen,
+    onbegroeidterreindeel.plus_fysiekvoorkomen,
+    onbegroeidterreindeel.onbegroeidterreindeeloptalud
+FROM onbegroeidterreindeel
+WHERE onbegroeidterreindeel.eindregistratie IS NULL AND onbegroeidterreindeel.bgt_status::text = 'bestaand'::text AND onbegroeidterreindeel.plus_status::text <> 'plan'::text AND onbegroeidterreindeel.plus_status::text <> 'historie'::text;
+
 drop table onbegroeidterreindeel_tmp;
 
 -- Ondersteunend waterdeel
